@@ -7,5 +7,5 @@ export const GenerateCostBtn = styled(Button)`
 `
 
 export const TownSelect = styled(Select)`
-  width: 150px !important;
+  width: 175px !important;
 `

@@ -2,7 +2,7 @@ import { Tag } from 'antd'
 import styled from 'styled-components'
 
 const StyledTag = styled(Tag)`
-  margin-bottom: 8px;
+  margin: 15px 10px;
   width: 50px;
   height: 50px;
   border-radius: 50%;

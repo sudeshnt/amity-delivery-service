@@ -14,11 +14,11 @@ ReactDOM.render(
       <Layout className="layout">
         <Header>
           <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1">
               <NavLink to="/delivery-cost">Delivery Cost</NavLink>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key="2">
               <NavLink to="/delivery-routes">Delivery Routes</NavLink>
             </Menu.Item>
           </Menu>
@@ -31,7 +31,7 @@ ReactDOM.render(
           <App />
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2018 Created by Ant UED
+          Amity Delivery Service ©2022 Created by Sudesh Nimesha
         </Footer>
       </Layout>
     </BrowserRouter>
