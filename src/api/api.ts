@@ -10,6 +10,6 @@ const instance = axios.create({
 });
 
 export const fetchGraphData = async () => {
-  const graph = await instance.get('6247d05b1a1b610f084a2c40')
-  return graph?.data?.routes
+  const graph = await instance.get('6247d05b1a1b610f084a2c40/1')
+  return graph?.data
 };
