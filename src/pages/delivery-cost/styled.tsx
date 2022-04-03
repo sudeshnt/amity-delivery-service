@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Button, Select } from 'antd'
+import { Select } from 'antd'
 
-export const GenerateCostBtn = styled(Button)`
+export const CostValue = styled.p`
   font-size: 24px;
   font-weight: 500;
 `
