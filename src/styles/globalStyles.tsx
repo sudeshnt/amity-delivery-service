@@ -2,6 +2,16 @@ import { createGlobalStyle } from 'styled-components'
 import images from 'assets/images'
 
 const GlobalStyles = createGlobalStyle`
+
+  * {
+    ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   @font-face {
     font-family: 'Georgia';
     src: local('Georgia'), url(../assets/fonts/Georgia.ttf) format('ttf');
@@ -51,6 +61,33 @@ const GlobalStyles = createGlobalStyle`
 
   .ant-form-item {
     margin-bottom: 0;
+  }
+
+  .ant-layout-header {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .ant-layout-footer { 
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #001529;
+    color: white;
+  }
+
+  .main-content {
+    height: calc(100vh - 134px);
+    overflow: scroll;
+    display: block;
+    position: fixed;
+    width: 100%;
+    top: 64px;
+    box-sizing: border-box;
+    padding: 20px;
   }
 `
 

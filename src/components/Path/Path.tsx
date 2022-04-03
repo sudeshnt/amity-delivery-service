@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
 import { message } from 'antd'
-import { CostValue } from 'pages/delivery-cost/styled'
 import Node from 'components/Node/Node'
-import { PathHeader, PathRow, CostColumn, PathColumn } from './styled'
+import {
+  PathHeader,
+  PathRow,
+  CostColumn,
+  PathColumn,
+  CostValue,
+  CostWithLabel,
+} from './styled'
 
 export const DeliveryPathHeader = () => {
   return (
     <PathHeader>
-      <PathColumn span={20} className="path-column">
+      <PathColumn span={20} className="column-name">
         Path
       </PathColumn>
       <CostColumn span={4}>Cost</CostColumn>
@@ -16,7 +22,7 @@ export const DeliveryPathHeader = () => {
 }
 
 const DeliveryPath = (props: any) => {
-  const { routes, path, onRemoveNode, layout } = props
+  const { routes, path, onRemoveNode, layout = 'row', costLabel } = props
 
   const [deliveryCost, setDeliveryCost] = useState<number>(0)
 
@@ -60,9 +66,18 @@ const DeliveryPath = (props: any) => {
               />
             ))}
           </PathColumn>
-          <CostColumn span={4}>
-            <CostValue>{deliveryCost > 0 && deliveryCost}</CostValue>
-          </CostColumn>
+          {deliveryCost > 0 && (
+            <CostColumn span={layout === 'row' ? 4 : 24}>
+              {costLabel ? (
+                <CostWithLabel>
+                  <p className="costLabel">{costLabel}</p>
+                  <p className="costValue">{deliveryCost}</p>
+                </CostWithLabel>
+              ) : (
+                <CostValue>{deliveryCost}</CostValue>
+              )}
+            </CostColumn>
+          )}
         </>
       )}
     </PathRow>

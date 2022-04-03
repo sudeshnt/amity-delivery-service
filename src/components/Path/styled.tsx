@@ -7,8 +7,9 @@ export const PathHeader = styled(Row)`
   font-weight: 600;
   font-size: 16px;
 
-  .path-column {
+  .column-name {
     padding-left: 15px;
+    justify-content: flex-start;
   }
 `
 
@@ -40,20 +41,41 @@ export const PathColumn = styled(Col)`
       content: '';
       background-image: url(${images.arrowHead});
       margin-right: 90px;
-      background-size: 28px 28px;
-      height: 28px;
-      width: 28px;
+      background-size: 20px 20px;
+      height: 20px;
+      width: 20px;
       transform: scaleX(-1);
     }
   }
 `
 
 export const CostColumn = styled(Col)`
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding: 10px;
 
   p {
     margin: 0;
+  }
+`
+
+export const CostValue = styled.p`
+  font-size: 24px;
+  font-weight: 500;
+`
+
+export const CostWithLabel = styled.div`
+  margin-top: 20px;
+  p {
+    text-align: center;
+  }
+  .costLabel {
+    color: #578fc4;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .costValue {
+    font-weight: 500;
+    font-size: 50px;
   }
 `
