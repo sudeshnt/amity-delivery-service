@@ -2,21 +2,29 @@ import { Select, Form, Layout, Row, Button } from 'antd'
 import { AppContext } from 'App'
 import DeliveryPath from 'components/Path/Path'
 import Title from 'components/Title/Title'
-import { useContext, useState } from 'react'
+import usePathUtils from 'hooks/usePathUtils'
+import { useContext, useEffect, useState } from 'react'
 import { PathContainer } from 'shared-styles'
 import { TownSelect } from './styled'
 
 const { Content } = Layout
 const { Option } = Select
 
-const DeliveryCost = () => {
+const DeliveryCostPage = () => {
   const appContext = useContext(AppContext)
   const { towns, routes } = appContext ?? {}
+  const [selectableTowns, setSelectableTowns] = useState<Array<string>>(towns)
   const [selectedPath, setSelectedPath] = useState<Array<string>>([])
-  const [selectedValue, setSelectedValue] = useState(null)
+  const [selectedValue, setSelectedValue] = useState('')
+  const { getAdjacentNodes } = usePathUtils()
+
+  useEffect(() => {
+    setSelectableTowns(towns)
+  }, [towns])
 
   const onSelectTown = (value: any) => {
     setSelectedPath([...selectedPath, value])
+    setSelectableTowns(getAdjacentNodes(routes, value))
   }
 
   const onRemoveTown = (index: number) => {
@@ -25,7 +33,8 @@ const DeliveryCost = () => {
 
   const clearSelectedPath = () => {
     setSelectedPath([])
-    setSelectedValue(null)
+    setSelectedValue('')
+    setSelectableTowns(towns)
   }
 
   return (
@@ -48,7 +57,7 @@ const DeliveryCost = () => {
                 allowClear
                 value={selectedValue}
               >
-                {towns?.map((town, index) => (
+                {selectableTowns?.map((town, index) => (
                   <Option key={index} value={town}>
                     {town}
                   </Option>
@@ -66,13 +75,13 @@ const DeliveryCost = () => {
             </Form.Item>
           </Row>
         )}
-
         <PathContainer>
           <DeliveryPath
             layout="column"
             path={selectedPath}
             routes={routes}
             onRemoveNode={onRemoveTown}
+            costLabel="Total cost of delivery for the selected path is"
           />
         </PathContainer>
       </Content>
@@ -80,4 +89,4 @@ const DeliveryCost = () => {
   )
 }
 
-export default DeliveryCost
+export default DeliveryCostPage
