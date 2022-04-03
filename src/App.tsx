@@ -1,7 +1,7 @@
-import { fetchGraphData } from 'api/api'
 import React, { useEffect, useState } from 'react'
 import Router from 'Router'
-import { uniq } from 'lodash'
+import { fetchGraphData } from 'api/api'
+import { AppContent } from 'shared-styles'
 import './App.css'
 
 interface Route {
@@ -33,9 +33,11 @@ const App = () => {
   }, [])
 
   return (
-    <AppContext.Provider value={applicationData}>
-      <Router />
-    </AppContext.Provider>
+    <AppContent>
+      <AppContext.Provider value={applicationData}>
+        <Router />
+      </AppContext.Provider>
+    </AppContent>
   )
 }
 
