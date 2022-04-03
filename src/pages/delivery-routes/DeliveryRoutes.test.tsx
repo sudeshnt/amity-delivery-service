@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import DeliveryRoutes from './DeliveryRoutes'
+import DeliveryRoutesPage from './DeliveryRoutes'
 
 describe('Test', () => {
   beforeAll(() => {
@@ -16,7 +16,7 @@ describe('Test', () => {
   })
 
   test('renders learn react link', () => {
-    render(<DeliveryRoutes />)
+    render(<DeliveryRoutesPage />)
     const linkElement = screen.getByText(/List Delivery Routes/i)
     expect(linkElement).toBeInTheDocument()
   })

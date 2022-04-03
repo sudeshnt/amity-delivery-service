@@ -10,7 +10,7 @@ import { PathContainer } from 'shared-styles'
 const { Content } = Layout
 const { Option } = Select
 
-const DeliveryRoutes = () => {
+const DeliveryRoutesPage = () => {
   const appContext = useContext(AppContext)
   const { towns, routes } = appContext ?? {}
   const [fromTown, setFromTown] = useState<string>()
@@ -43,7 +43,7 @@ const DeliveryRoutes = () => {
     }
   }
 
-  const getAdjacentNodes = (curr: string = 'B') => {
+  const getAdjacentNodes = (curr: string) => {
     if (!isEmpty(routes)) {
       return Object.entries(routes[curr])
         .filter(([key, val]) => {
@@ -158,6 +158,12 @@ const DeliveryRoutes = () => {
           </Row>
           {allRoutes.length > 0 && (
             <>
+              <Title
+                title=""
+                subtitle={`${allRoutes.length} ${
+                  allRoutes.length > 1 ? 'paths are' : 'path is'
+                } found from town ${fromTown} to ${toTown}`}
+              />
               <PathContainer isHeader>
                 <DeliveryPathHeader />
                 {allRoutes?.map((path) => (
@@ -172,4 +178,4 @@ const DeliveryRoutes = () => {
   )
 }
 
-export default DeliveryRoutes
+export default DeliveryRoutesPage

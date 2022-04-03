@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import DeliveryCost from './DeliveryCost'
+import DeliveryCostPage from './DeliveryCost'
 
 describe('Test', () => {
   beforeAll(() => {
@@ -16,7 +16,7 @@ describe('Test', () => {
   })
 
   test('renders learn react link', () => {
-    render(<DeliveryCost />)
+    render(<DeliveryCostPage />)
     const linkElement = screen.getByText(/Calculate Delivery Cost/i)
     expect(linkElement).toBeInTheDocument()
   })
