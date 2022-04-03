@@ -2,14 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Router from 'Router'
 import { fetchGraphData } from 'api/api'
 import { AppContent } from 'shared-styles'
+import GlobalStyles from 'styles/globalStyles'
 import './App.css'
-
-interface Route {
-  id: number
-  source: string
-  destination: string
-  const: number
-}
 
 const defaultContext = {
   towns: [],
@@ -35,6 +29,7 @@ const App = () => {
   return (
     <AppContent>
       <AppContext.Provider value={applicationData}>
+        <GlobalStyles />
         <Router />
       </AppContext.Provider>
     </AppContent>
