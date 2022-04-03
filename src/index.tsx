@@ -4,7 +4,7 @@ import { BrowserRouter, NavLink } from 'react-router-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { Layout, Menu, Breadcrumb } from 'antd'
+import { Layout, Menu } from 'antd'
 
 const { Header, Content, Footer } = Layout
 
@@ -14,7 +14,10 @@ ReactDOM.render(
       <Layout className="layout">
         <Header>
           <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
+            <Menu.Item key="0">
+              <NavLink to="/">Home</NavLink>
+            </Menu.Item>
             <Menu.Item key="1">
               <NavLink to="/delivery-cost">Delivery Cost</NavLink>
             </Menu.Item>
@@ -23,16 +26,10 @@ ReactDOM.render(
             </Menu.Item>
           </Menu>
         </Header>
-        <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-          </Breadcrumb>
+        <Content className="main-content">
           <App />
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Amity Delivery Service ©2022 Created by Sudesh Nimesha
-        </Footer>
+        <Footer>Amity Delivery Service ©2022 Created by Sudesh Nimesha</Footer>
       </Layout>
     </BrowserRouter>
   </React.StrictMode>,
