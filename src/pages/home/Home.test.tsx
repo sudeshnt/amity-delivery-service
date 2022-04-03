@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import DeliveryCostPage from './DeliveryCost'
+import HomePage from './Home'
 
-describe('Delivery Cost Page', () => {
+describe('Home Page', () => {
   beforeAll(() => {
     Object.defineProperty(window, 'matchMedia', {
       value: () => {
@@ -16,8 +16,8 @@ describe('Delivery Cost Page', () => {
   })
 
   test('renders title', () => {
-    render(<DeliveryCostPage />)
-    const linkElement = screen.getByText(/Calculate Delivery Cost/i)
+    render(<HomePage />)
+    const linkElement = screen.getByText(/Amity Delivery Service/i)
     expect(linkElement).toBeInTheDocument()
   })
 })

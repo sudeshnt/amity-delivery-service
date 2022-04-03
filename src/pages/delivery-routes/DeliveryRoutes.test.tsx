@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import DeliveryRoutesPage from './DeliveryRoutes'
 
-describe('Test', () => {
+describe('Delivery Routes Page', () => {
   beforeAll(() => {
     Object.defineProperty(window, 'matchMedia', {
       value: () => {
@@ -15,7 +15,7 @@ describe('Test', () => {
     })
   })
 
-  test('renders learn react link', () => {
+  test('renders title', () => {
     render(<DeliveryRoutesPage />)
     const linkElement = screen.getByText(/List Delivery Routes/i)
     expect(linkElement).toBeInTheDocument()

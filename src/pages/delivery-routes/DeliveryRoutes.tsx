@@ -2,7 +2,8 @@ import { Layout, Row, Form, Select, Button } from 'antd'
 import { AppContext } from 'App'
 import DeliveryPath, { DeliveryPathHeader } from 'components/Path/Path'
 import Title from 'components/Title/Title'
-import { isEmpty, cloneDeep } from 'lodash'
+import usePathUtils from 'hooks/usePathUtils'
+import { cloneDeep } from 'lodash'
 import { TownSelect } from 'pages/delivery-cost/styled'
 import { useContext, useState, useEffect } from 'react'
 import { PathContainer } from 'shared-styles'
@@ -17,6 +18,7 @@ const DeliveryRoutesPage = () => {
   const [toTown, setToTown] = useState<string>()
   const [tempRoute, setTempRoute] = useState<any>([])
   const [allRoutes, setAllRoutes] = useState<Array<string>>([])
+  const { getAdjacentNodes } = usePathUtils()
 
   useEffect(() => {
     if (tempRoute.length) {
@@ -24,10 +26,6 @@ const DeliveryRoutesPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tempRoute])
-
-  useEffect(() => {
-    console.log(allRoutes)
-  }, [allRoutes])
 
   const onSelectTown = (type: string, val: string) => {
     clearAllRoutes()
@@ -41,17 +39,6 @@ const DeliveryRoutesPage = () => {
       default:
         break
     }
-  }
-
-  const getAdjacentNodes = (curr: string) => {
-    if (!isEmpty(routes)) {
-      return Object.entries(routes[curr])
-        .filter(([key, val]) => {
-          return (val as number) > 0
-        })
-        .map(([key]) => key)
-    }
-    return []
   }
 
   function onSubmit() {
@@ -68,8 +55,6 @@ const DeliveryRoutesPage = () => {
     allPaths: any
   ) {
     if (start === end) {
-      // tempRoute = cloneDeep(localPath)
-      // tempRoute.push(cloneDeep(localPath))
       setTempRoute(cloneDeep(localPath))
       // stop recurring since we have reached destination
       return
@@ -77,7 +62,7 @@ const DeliveryRoutesPage = () => {
     // Mark the current node as visited
     isVisited[start] = true
     // get adjacent nodes to the current node
-    const adjacentNodes = getAdjacentNodes(start)
+    const adjacentNodes = getAdjacentNodes(routes, start)
     for (let i = 0; i < adjacentNodes.length; i++) {
       if (!isVisited[adjacentNodes[i]]) {
         // store current node in localPath
