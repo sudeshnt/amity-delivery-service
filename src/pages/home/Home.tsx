@@ -1,7 +1,50 @@
+import { useState, useContext, useEffect } from 'react'
+import Graph from 'react-graph-vis'
 import { Col, Row } from 'antd'
-import { HomeContent } from './styled'
+import { isEmpty } from 'lodash'
+import { AppContext } from 'App'
+import { HomeContent, GraphContainer } from './styled'
 
 const HomePage = () => {
+  const appContext = useContext(AppContext)
+  const { towns, routes } = appContext ?? {}
+  const [graph, setGraph] = useState<any>({})
+
+  useEffect(() => {
+    if (!isEmpty(routes)) {
+      const nodes = towns.map((town, i) => {
+        return { id: i + 1, label: town }
+      })
+      const edges: Array<any> = []
+      Object.entries(routes).forEach(([source, destinations]) => {
+        Object.entries(destinations as any).forEach(([dest, cost]) => {
+          if ((cost as number) > 0) {
+            const sourceNodeId = nodes.find((n) => n.label === source)?.id
+            const destNodeId = nodes.find((n) => n.label === dest)?.id
+            if (sourceNodeId && destNodeId) {
+              edges.push({
+                id: edges.length + 1,
+                from: sourceNodeId,
+                to: destNodeId,
+              })
+            }
+          }
+        })
+      })
+      setGraph({ nodes, edges })
+    }
+  }, [towns, routes])
+
+  const options = {
+    layout: {
+      hierarchical: false,
+    },
+    edges: {
+      color: '#000000',
+    },
+    height: '500px',
+  }
+
   return (
     <main>
       <HomeContent>
@@ -32,6 +75,16 @@ const HomePage = () => {
             </p>
           </Col>
         </Row>
+        {!isEmpty(graph?.nodes) && !isEmpty(graph?.edges) && (
+          <GraphContainer>
+            <h3>Map of the towns are as follows</h3>
+            <Graph
+              graph={graph}
+              options={options}
+              style={{ pointerEvents: 'none', height: '300px' }}
+            />
+          </GraphContainer>
+        )}
       </HomeContent>
     </main>
   )
