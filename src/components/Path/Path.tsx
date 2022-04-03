@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react'
 import { message } from 'antd'
 import { CostValue } from 'pages/delivery-cost/styled'
 import Node from 'components/Node/Node'
-import { PathRow, CostColumn, PathColumn } from './styled'
+import { PathHeader, PathRow, CostColumn, PathColumn } from './styled'
+
+export const DeliveryPathHeader = () => {
+  return (
+    <PathHeader>
+      <PathColumn span={20} className="path-column">
+        Path
+      </PathColumn>
+      <CostColumn span={4}>Cost</CostColumn>
+    </PathHeader>
+  )
+}
 
 const DeliveryPath = (props: any) => {
   const { routes, path, onRemoveNode, layout } = props
@@ -19,9 +30,9 @@ const DeliveryPath = (props: any) => {
         } else {
           message.error({
             duration: 2,
-            content: 'Path does not exist',
+            content: `Path does not exist from ${node} to ${nextNode}`,
           })
-          onRemoveNode(index + 1)
+          onRemoveNode && onRemoveNode(index + 1)
         }
       }
       return acc
@@ -40,18 +51,17 @@ const DeliveryPath = (props: any) => {
     <PathRow layout={layout}>
       {path.length > 0 && (
         <>
-          <PathColumn span={20}>
+          <PathColumn span={20} className="path-column">
             {path?.map((node: string, index: number) => (
               <Node
                 key={index}
                 text={node}
-                closable={!!onRemoveNode}
-                onClose={() => onRemoveNode(index)}
+                onClose={() => onRemoveNode && onRemoveNode(index)}
               />
             ))}
           </PathColumn>
           <CostColumn span={4}>
-            <CostValue>{deliveryCost}</CostValue>
+            <CostValue>{deliveryCost > 0 && deliveryCost}</CostValue>
           </CostColumn>
         </>
       )}

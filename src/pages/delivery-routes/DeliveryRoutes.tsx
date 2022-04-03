@@ -1,9 +1,11 @@
-import { Layout, Row, Form, Select, Button, Col } from 'antd'
+import { Layout, Row, Form, Select, Button } from 'antd'
 import { AppContext } from 'App'
-import DeliveryPath from 'components/Path/Path'
+import DeliveryPath, { DeliveryPathHeader } from 'components/Path/Path'
+import Title from 'components/Title/Title'
 import { isEmpty, cloneDeep } from 'lodash'
 import { TownSelect } from 'pages/delivery-cost/styled'
 import { useContext, useState, useEffect } from 'react'
+import { PathContainer } from 'shared-styles'
 
 const { Content } = Layout
 const { Option } = Select
@@ -101,10 +103,11 @@ const DeliveryRoutes = () => {
 
   return (
     <main>
-      <Content className="content">
-        <Row justify="center">
-          <h2>List Delivery Routes</h2>
-        </Row>
+      <Content>
+        <Title
+          title="List Delivery Routes"
+          subtitle="Please select starting and ending towns to list routes"
+        />
         <Form
           name="from_to_town_form"
           autoComplete="off"
@@ -117,6 +120,7 @@ const DeliveryRoutes = () => {
                 onSelect={(val: any) => onSelectTown('from', val)}
                 value={fromTown}
                 allowClear
+                onClear={clearAllRoutes}
               >
                 {towns?.map((town, index) => (
                   <Option key={index} value={town}>
@@ -131,6 +135,7 @@ const DeliveryRoutes = () => {
                 onSelect={(val: any) => onSelectTown('to', val)}
                 value={toTown}
                 allowClear
+                onClear={clearAllRoutes}
               >
                 {towns?.map((town, index) => (
                   <Option key={index} value={town}>
@@ -151,11 +156,16 @@ const DeliveryRoutes = () => {
               </Button>
             </Form.Item>
           </Row>
-          <Row justify="center">
-            {allRoutes?.map((path) => (
-              <DeliveryPath path={path} routes={routes} />
-            ))}
-          </Row>
+          {allRoutes.length > 0 && (
+            <>
+              <PathContainer isHeader>
+                <DeliveryPathHeader />
+                {allRoutes?.map((path) => (
+                  <DeliveryPath path={path} routes={routes} />
+                ))}
+              </PathContainer>
+            </>
+          )}
         </Form>
       </Content>
     </main>

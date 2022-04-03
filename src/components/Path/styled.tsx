@@ -2,11 +2,29 @@ import styled from 'styled-components'
 import { Row, Col } from 'antd'
 import images from 'assets/images'
 
-export const PathRow = styled(Row)<{ layout: string }>`
+export const PathHeader = styled(Row)`
+  color: #578fc4;
+  font-weight: 600;
+  font-size: 16px;
+
+  .path-column {
+    padding-left: 15px;
+  }
+`
+
+export const PathRow = styled(Row)<{ layout?: string }>`
   flex-direction: ${({ layout = 'row' }) => layout};
   align-items: center;
   min-width: 100%;
   max-width: 500px;
+  border: ${({ layout = 'row' }) =>
+    layout === 'row' ? '1px solid #d5ecf9' : 'none'};
+  margin: 5px 0;
+
+  .path-column {
+    justify-content: ${({ layout = 'row' }) =>
+      layout === 'row' ? 'flex-start' : 'center'};
+  }
 `
 
 export const PathColumn = styled(Col)`
@@ -16,7 +34,6 @@ export const PathColumn = styled(Col)`
 
   .ant-tag:not(:first-child) {
     margin-left: 30px;
-    background: ${images.arrowHead};
     &:after {
       display: block;
       position: absolute;
@@ -34,6 +51,7 @@ export const PathColumn = styled(Col)`
 export const CostColumn = styled(Col)`
   justify-content: flex-end;
   align-items: center;
+  padding: 10px;
 
   p {
     margin: 0;
