@@ -51,3 +51,13 @@ export const HomeContent = styled(Content)`
     margin-top: 30px;
   }
 `
+
+export const GraphContainer = styled(Content)`
+  h3 {
+    margin: 30px 0 -10px;
+  }
+
+  .vis-network {
+    height: 300px !important;
+  }
+`
